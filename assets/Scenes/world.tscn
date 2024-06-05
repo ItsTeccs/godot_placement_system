@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://be2c5ea36rdh6"]
+
+[ext_resource type="Texture2D" uid="uid://kjvnlcetciaj" path="res://assets/kenneys-prototype-assets/PNG/Light/texture_07.png" id="1_0jkex"]
+[ext_resource type="Script" path="res://assets/Scripts/RaycastCamera.gd" id="2_01nuo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_snvou"]
+size = Vector3(140.844, 0.100207, 147.631)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qms82"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxhey"]
+albedo_color = Color(0.505344, 0.505344, 0.505344, 1)
+albedo_texture = ExtResource("1_0jkex")
+uv1_scale = Vector3(0.05, 0.05, 0.05)
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv2_scale = Vector3(0.1, 0.1, 0.1)
+uv2_triplanar = true
+uv2_world_triplanar = true
+
+[sub_resource type="Environment" id="Environment_l2qkk"]
+
+[node name="World" type="Node3D"]
+
+[node name="Floor" type="Node3D" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_snvou")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor/StaticBody3D"]
+transform = Transform3D(140.844, 0, 0, 0, 0.100207, 0, 0, 0, 147.631, 0, 0, 0)
+mesh = SubResource("BoxMesh_qms82")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_fxhey")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 200, 0)
+light_energy = 2.5
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_l2qkk")
+
+[node name="RaycastCamera" type="Camera3D" parent="."]
+script = ExtResource("2_01nuo")
